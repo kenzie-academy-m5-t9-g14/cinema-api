@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+<<<<<<< feature/app_seats
     'seats',
+=======
+    'addresses',
+    'genres',
+>>>>>>> develop
 ]
 
 MIDDLEWARE = [
