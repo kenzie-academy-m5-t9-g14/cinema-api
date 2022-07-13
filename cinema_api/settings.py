@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'genres',
     'users',
     'seats',
+    'schedules',
 ]
 
 MIDDLEWARE = [
