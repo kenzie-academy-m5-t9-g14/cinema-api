@@ -26,7 +26,10 @@ class Migration(migrations.Migration):
                 ('closing_date', models.DateField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+<<<<<<< HEAD
                 ('genres', models.ManyToManyField(related_name='movies', to='genres.genre')),
+=======
+>>>>>>> develop
             ],
         ),
     ]
