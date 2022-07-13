@@ -1,9 +1,11 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .utils import  CustomUserManager
 from django.utils import timezone
 
 class User(AbstractUser):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=50, null=False)
     cpf = models.CharField(max_length=11, null=False)
     email = models.EmailField(unique=True, null=False)
