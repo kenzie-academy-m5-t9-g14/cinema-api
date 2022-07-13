@@ -10,4 +10,5 @@ class Cinema(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # address = models.ForeignKey("addresses.Address", on_delete=models.CASCADE, related_name="cinemas")
+    address = models.ForeignKey("addresses.Address", on_delete=models.CASCADE, related_name="cinemas")
+    user = models.ManyToManyField("users.User", related_name="cinemas", null=True) 
