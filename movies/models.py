@@ -19,5 +19,3 @@ class MoviesModel(models.Model):
 
 
     genres = models.ManyToManyField("genres.Genre", related_name = "movies")
-
-    # !! esse app faz relação ManyToMany com genres
