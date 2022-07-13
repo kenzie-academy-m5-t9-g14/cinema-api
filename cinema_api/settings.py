@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'seats',
     'addresses',
     'genres',
+    'schedules',
 ]
 
 MIDDLEWARE = [
