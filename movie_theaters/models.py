@@ -11,6 +11,6 @@ class MovieTheater(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-    session = models.ForeignKey(
-        "sessions.Session", on_delete=models.CASCADE, related_name="movies"
+    cinema = models.ForeignKey(
+        "cinemas.Cinema", on_delete=models.CASCADE, related_name="movie_theathers"
     )
