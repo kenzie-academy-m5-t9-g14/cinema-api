@@ -25,7 +25,31 @@ class MovieSerializer(serializers.ModelSerializer):
 
         movie = MoviesModel.objects.create(**validated_data)
 
-        ipdb.set_trace()
+
         movie.genres.set(new_genre)
 
         return movie
+
+
+    def update(self,instance:MoviesModel,validated_data):
+        # genre = validated_data.pop("genres")
+
+        # new_genre = [Genre.objects.get_or_create(name=item["name"])[0] for item in genre] 
+        # movie = MoviesModel.objects.get()
+
+        # instance.save()
+        # ipdb.set_trace()
+        if validated_data.get("genres"):
+            genre = validated_data.pop("genres") # aqui eu corto o genre
+            new_genre = [Genre.objects.get_or_create(name=item["name"])[0] for item in genre]
+            instance.genres.set(new_genre) # aqui reatribuo o genres, mas não salvo ele
+               
+
+
+        for key, value in validated_data.items():
+                # ipdb.set_trace()
+            setattr(instance,key,value)
+
+        # ipdb.set_trace()
+        return instance
+
