@@ -18,8 +18,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('kinema/', include("movie_theaters.urls")),
     path('kinema/', include("cinemas.urls")),
     path("kinema/",include("movies.urls")),
     path("kinema/",include("users.urls")),
+=======
+>>>>>>> 25cf22e8ee83852d8e916743ffe810d796122148
 ]

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'rest_framework',
+<<<<<<< HEAD
     'movie_theaters',
     'addresses',
     'cinemas',
@@ -54,6 +55,8 @@ INSTALLED_APPS = [
     'users',
     'seats',
     'schedules',
+=======
+>>>>>>> 25cf22e8ee83852d8e916743ffe810d796122148
 ]
 
 MIDDLEWARE = [
