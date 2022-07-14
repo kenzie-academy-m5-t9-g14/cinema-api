@@ -14,6 +14,9 @@ class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
+    
+
 class LoginUserView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
