@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'cinemas',
     'movies',
     'genres',
-    'sessions',
+    'movie_sessions',
     'users',
     'seats',
     'schedules',
