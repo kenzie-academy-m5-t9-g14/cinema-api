@@ -9,4 +9,4 @@ class Seat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # movie_theater_id = models.ForeignKey("movie_theaters.MovieTheater", on_delete=models.CASCADE, related_name="seats")
+    movie_theater_id = models.ForeignKey("movie_theaters.MovieTheater", on_delete=models.CASCADE, related_name="seats")
