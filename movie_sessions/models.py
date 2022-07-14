@@ -16,4 +16,4 @@ class MovieSession(models.Model):
     movie = models.ForeignKey("movies.MoviesModel", on_delete=models.CASCADE, related_name="movie_sessions")
     
     seat = models.ManyToManyField("seats.Seat", related_name="movie_sessions")
-    # schedule = models.ManyToManyField("schedules.Schedule", related_name="sessions")
+    schedule = models.ManyToManyField("schedules.Schedule", related_name="sessions")
