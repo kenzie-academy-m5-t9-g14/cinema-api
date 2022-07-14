@@ -44,7 +44,11 @@ INSTALLED_APPS = [
     'cinemas',
     'movies',
     'genres',
+<<<<<<< HEAD
     'sessions',
+=======
+    'movie_sessions',
+>>>>>>> origin/develop
     'users',
     'seats',
     'schedules',
