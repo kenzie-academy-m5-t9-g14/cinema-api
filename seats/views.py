@@ -4,15 +4,18 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 
 
 from . import serializers
 from . import models
+from . import permissions
 
 from movie_theaters.models import MovieTheater
 
 class SeatsCreateView(APIView):
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.AuthPermissionToUser]
 
     def post(self, request, movie_theater_id):
 
