@@ -31,20 +31,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.contenttypes',
+    'django.contrib.staticfiles',
+    'rest_framework.authtoken',
+    'django.contrib.messages',
+    'django.contrib.sessions',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
     'rest_framework',
-    'movies',
     'movie_theaters',
-    'cinemas',
-    'seats',
     'addresses',
+    'cinemas',
+    'movies',
     'genres',
     'sessions',
+    'users',
+    'seats',
+    'schedules',
 ]
 
 MIDDLEWARE = [
@@ -130,4 +133,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = '<------->.User'
+AUTH_USER_MODEL = 'users.User'

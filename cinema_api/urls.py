@@ -21,4 +21,5 @@ urlpatterns = [
     path('kinema/', include("movie_theaters.urls")),
     path('api/', include("cinemas.urls")),
     path("api/",include("movies.urls")),
+    path("api/",include("users.urls")),
 ]
