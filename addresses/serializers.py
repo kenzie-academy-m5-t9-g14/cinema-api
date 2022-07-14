@@ -5,3 +5,4 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ['id', 'street', 'district', 'number', 'city', 'zipcode']
+        fields_read_only = ['id']

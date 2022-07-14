@@ -2,7 +2,6 @@ from rest_framework import serializers
 from movies.models import MoviesModel
 from genres.serializers import GenreSerializer
 from genres.models import Genre
-import ipdb
 
 
 
