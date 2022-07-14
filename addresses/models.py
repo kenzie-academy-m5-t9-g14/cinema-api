@@ -11,4 +11,4 @@ class Address(models.Model):
     district = models.CharField(max_length=100)
     number = models.IntegerField()
     city = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=7)
+    zipcode = models.CharField(max_length=8)
