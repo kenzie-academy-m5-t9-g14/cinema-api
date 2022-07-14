@@ -9,8 +9,7 @@ from cinemas.models import Cinema
 
 class CinemaView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    # {CustomAdminPermission]
+    permission_classes = [IsAuthenticatedOrReadOnly, CustomAdminPermission]
 
     queryset = Cinema.objects.all()
     serializer_class = CinemaSerializer
