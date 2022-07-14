@@ -2,7 +2,7 @@ from cinemas.serializers import CinemaSerializer
 from rest_framework import serializers
 
 from .models import MovieTheater
-
+from movie_sessions.serializers import MovieSessionSerializer
 
 class MovieTheaterSerializer(serializers.ModelSerializer):
     cinema = CinemaSerializer(read_only=True)
@@ -15,3 +15,4 @@ class MovieTheaterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return MovieTheater.objects.create(**validated_data)
+

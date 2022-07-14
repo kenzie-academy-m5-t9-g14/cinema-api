@@ -1,14 +1,16 @@
 from rest_framework import serializers
 from .models import User
-
+from addresses.models import Address
+from addresses.serializers import AddressSerializer
 
 class UserSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField()
+    address = AddressSerializer()
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'name', 'cpf', 'email', 'birth_date', 'cellphone', 'genre', 'address', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -21,8 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
+        address_poped = validated_data.pop('address')
+        validated_address, _ = Address.objects.get_or_create(**address_poped)
 
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data, address=validated_address)
+        
+        return user
 
 
 class LoginSerializer(serializers.Serializer):

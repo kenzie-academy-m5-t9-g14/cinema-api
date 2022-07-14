@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.utils import timezone
 
-class Session(models.Model):
+class MovieSession(models.Model):
     id = models.UUIDField(
             primary_key = True, 
             default = uuid.uuid4,
@@ -13,7 +13,7 @@ class Session(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     
-    movie = models.ForeignKey("movies.Movie", on_delete=models.CASCADE, related_name="sessions")
+    movie = models.ForeignKey("movies.MoviesModel", on_delete=models.CASCADE, related_name="movie_sessions")
     
-    seat = models.ManyToManyField("seats.Seat", related_name="sessions")
-    # schedule = models.ManyToManyField("schedules.Schedule", related_name="sessions")
+    seat = models.ManyToManyField("seats.Seat", related_name="movie_sessions")
+    schedule = models.ManyToManyField("schedules.Schedule", related_name="sessions")
