@@ -12,3 +12,4 @@ class Cinema(models.Model):
 
     address = models.ForeignKey("addresses.Address", on_delete=models.CASCADE, related_name="cinemas")
     user = models.ManyToManyField("users.User", related_name="cinemas", null=True) 
+
