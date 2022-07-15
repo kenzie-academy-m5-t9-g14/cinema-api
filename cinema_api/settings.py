@@ -36,15 +36,21 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
-    'rest_framework.authtoken',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
     'django.contrib.auth',
-    'rest_framework',
+]
+
+THIRD_PARTY_APPS = [
+    'rest_framework.authtoken',
+     'rest_framework',
+]
+
+MY_APPS = [
     'movie_theaters',
     'addresses',
     'cinemas',
@@ -55,6 +61,8 @@ INSTALLED_APPS = [
     'seats',
     'schedules',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
