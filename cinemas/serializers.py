@@ -8,7 +8,7 @@ class CinemaSerializer(serializers.ModelSerializer):
     address = AddressSerializer()
     class Meta:
         model = Cinema
-        fields = "__all__"
+        fields = ['id', 'name', 'phone', 'email', 'opening_hours', 'address']
         read_only_fields = ["user"]
 
     def create(self, validated_data):

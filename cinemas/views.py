@@ -1,11 +1,11 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from cinemas.models import Cinema
 from cinemas.permissions import CustomAdminPermission
 from cinemas.serializers import CinemaSerializer
 
-from cinemas.models import Cinema
 
 class CinemaView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
