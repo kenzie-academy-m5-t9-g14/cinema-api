@@ -12,10 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('schedules', '0001_initial'),
-<<<<<<< HEAD
-=======
         ('seats', '0001_initial'),
->>>>>>> de16b37b471a302e471a29e974f106b6a2814f7f
         ('movies', '0001_initial'),
         ('seats', '0001_initial'),
     ]
