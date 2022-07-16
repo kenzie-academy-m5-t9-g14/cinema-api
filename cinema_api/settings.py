@@ -37,15 +37,22 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
-    'rest_framework.authtoken',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
     'django.contrib.auth',
+]
+
+THIRD_PARTY_APPS = [
+    'rest_framework.authtoken',
     'rest_framework',
+    'drf_spectacular',
+]
+
+MY_APPS = [
     'movie_theaters',
     'addresses',
     'cinemas',
@@ -56,6 +63,8 @@ INSTALLED_APPS = [
     'seats',
     'schedules',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -151,3 +160,16 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Kinema-Api',
+    'DESCRIPTION': 'Api para gerenciamento de cinema',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
