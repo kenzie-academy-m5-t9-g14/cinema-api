@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(max_length=100)),
                 ('birth_date', models.DateField()),
                 ('cellphone', models.CharField(max_length=13, null=True)),
-                ('genre', models.CharField(max_length=20, null=True)),
+                ('genre', models.CharField(max_length=50, null=True)),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('updated_at', models.DateField(auto_now=True)),
                 ('username', models.CharField(max_length=255, null=True)),
