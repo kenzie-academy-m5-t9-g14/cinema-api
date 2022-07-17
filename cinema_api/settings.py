@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
-import dotenv
+from dotenv import load_dotenv
 
+load_dotenv()  # take environment variables from .env.
 import os
 
 import dj_database_url
@@ -40,15 +41,22 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
-    'rest_framework.authtoken',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
     'django.contrib.auth',
+]
+
+THIRD_PARTY_APPS = [
+    'rest_framework.authtoken',
     'rest_framework',
+    'drf_spectacular',
+]
+
+MY_APPS = [
     'movie_theaters',
     'addresses',
     'cinemas',
@@ -59,6 +67,8 @@ INSTALLED_APPS = [
     'seats',
     'schedules',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

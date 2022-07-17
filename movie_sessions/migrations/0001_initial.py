@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         ('schedules', '0001_initial'),
         ('seats', '0001_initial'),
         ('movies', '0001_initial'),
+        ('seats', '0001_initial'),
     ]
 
     operations = [

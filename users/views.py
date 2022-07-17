@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate
 
 from users.serializers import UserSerializer, LoginSerializer
 from users.models import User
+from . import permissions
+from rest_framework.authentication import TokenAuthentication
 
 
 class UserView(generics.ListCreateAPIView):
@@ -34,3 +36,12 @@ class LoginUserView(APIView):
         return Response(
             {"detail": "Invalid email or password"}, status.HTTP_401_UNAUTHORIZED 
         )
+
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsOwner]
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

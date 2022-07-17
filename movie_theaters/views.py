@@ -2,19 +2,15 @@ from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-
 from movie_theaters.permissions import CustomAdminPermission
 from movie_theaters.serializers import MovieTheaterSerializer
 
 from .models import MovieTheater
 
 
-from movie_sessions.models import MovieSession
-
 class MovieTheaterView(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    
+    permission_classes = [IsAuthenticatedOrReadOnly, CustomAdminPermission]
     
     queryset = MovieTheater.objects.all()
     serializer_class = MovieTheaterSerializer
@@ -29,7 +25,7 @@ class ListTheaterView(generics.ListAPIView):
 
 class MovieTheaterDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, CustomAdminPermission]
     
     queryset = MovieTheater.objects.all()
     serializer_class = MovieTheaterSerializer

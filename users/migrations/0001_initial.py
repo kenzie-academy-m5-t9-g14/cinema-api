@@ -11,8 +11,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
         ('addresses', '0001_initial'),
+        ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
     operations = [
@@ -30,10 +30,10 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50)),
                 ('cpf', models.CharField(max_length=11)),
                 ('email', models.EmailField(max_length=254, unique=True)),
-                ('password', models.CharField(max_length=20)),
+                ('password', models.CharField(max_length=100)),
                 ('birth_date', models.DateField()),
                 ('cellphone', models.CharField(max_length=13, null=True)),
-                ('genre', models.CharField(max_length=20, null=True)),
+                ('genre', models.CharField(max_length=50, null=True)),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('updated_at', models.DateField(auto_now=True)),
                 ('username', models.CharField(max_length=255, null=True)),
