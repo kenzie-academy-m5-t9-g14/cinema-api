@@ -62,6 +62,8 @@ MY_APPS = [
     'users',
     'seats',
     'schedules',
+    'tickets',
+    'payment_types',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
