@@ -59,6 +59,19 @@ class UserSerializer(serializers.ModelSerializer):
         return user        
 
 
+class ListUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'cpf', 'email']
+
+
+class SpecificUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+        extra_kwargs = {'password': {'write_only': True}}
+
+        
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
