@@ -6,7 +6,8 @@ from movie_theaters.permissions import CustomAdminPermission
 from movie_theaters.serializers import MovieTheaterSerializer
 
 from .models import MovieTheater
-
+from movie_sessions.models import MovieSession 
+from movie_sessions.serializers import MovieSessionSerializer
 
 class MovieTheaterView(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
@@ -34,4 +35,4 @@ class MovieTheaterDetailView(generics.RetrieveUpdateDestroyAPIView):
 class MovieTheaterMovieSessionsView(generics.ListCreateAPIView):
     # authentication_classes = [TokenAuthentication]
     queryset = MovieSession.objects.all()
-    serializer_class = MovieTheaterMovieSessionsSerializer
+    serializer_class = MovieSessionSerializer
