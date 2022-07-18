@@ -15,7 +15,8 @@ class User(AbstractUser):
     password = models.CharField(max_length=100, null=False)
     birth_date = models.DateField(null=False)
     cellphone = models.CharField(max_length=13, null=True)
-    genre = models.CharField(max_length=20, null=True)
+    genre = models.CharField(max_length=50, null=True)
+    status_active = models.BooleanField(default=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
