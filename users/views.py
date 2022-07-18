@@ -5,8 +5,9 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import Response,status
 from django.contrib.auth import authenticate
+from .mixins import SerializerByMethodMixin
 
-from users.serializers import UserSerializer, LoginSerializer,UserAdminSerializer
+from users.serializers import UserSerializer, LoginSerializer,UserAdminSerializer, ListUserSerializer, SpecificUserSerializer
 from users.models import User
 from . import permissions
 from rest_framework.authentication import TokenAuthentication
@@ -16,10 +17,12 @@ class UserAdminView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserAdminSerializer
 
-class UserView(generics.ListCreateAPIView):
+class UserView(SerializerByMethodMixin, generics.ListCreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer    
-
+    serializer_map = {
+        'GET': ListUserSerializer,
+        'POST': UserSerializer    
+    }
 
     
 
@@ -42,13 +45,17 @@ class LoginUserView(APIView):
         )
 
 
-class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+class UserDetailView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsOwner]
 
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_map = {
+        'GET': SpecificUserSerializer,
+        'PATCH': UserSerializer,
+        'DELETE': UserSerializer
+    }
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
