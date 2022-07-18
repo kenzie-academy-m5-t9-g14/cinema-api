@@ -1,0 +1,1 @@
+web: gunicorn cinema_api.wsgi
