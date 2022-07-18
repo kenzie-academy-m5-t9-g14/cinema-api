@@ -52,8 +52,8 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        setattr(instance,"status_active",False)
+        setattr(instance,"is_active",False)
         instance.save()
-        serializer = UserSerializer(instance,{"status_active":False},partial=True)
+        serializer = UserSerializer(instance,{"is_active":False},partial=True)
         serializer.is_valid(raise_exception=True)
         return Response(status=status.HTTP_204_NO_CONTENT)
