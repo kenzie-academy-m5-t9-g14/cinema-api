@@ -22,7 +22,7 @@ class User(AbstractUser):
 
     username = models.CharField(unique=False, null=True, max_length=255)
 
-    address = models.ForeignKey('addresses.Address', on_delete=models.DO_NOTHING, related_name='users')
+    address = models.ForeignKey('addresses.Address', on_delete=models.DO_NOTHING, related_name='users', null=True)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name', 'cpf', 'birth_date',]
