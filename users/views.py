@@ -3,7 +3,7 @@ from rest_framework.views import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import status
-
+from rest_framework.views import Response,status
 from django.contrib.auth import authenticate
 
 from users.serializers import UserSerializer, LoginSerializer,UserAdminSerializer
@@ -46,3 +46,11 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        setattr(instance,"status_active",False)
+        instance.save()
+        serializer = UserSerializer(instance,{"status_active":False},partial=True)
+        serializer.is_valid(raise_exception=True)
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -12,7 +12,7 @@ class UserAdminSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'cpf', 'email', 'birth_date', 'cellphone', 'genre', 'address', 'password']
+        fields = ['id', 'name', 'cpf', 'email', 'birth_date', 'cellphone', 'genre', 'address', 'password','status_active']
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -39,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'cpf', 'email', 'birth_date', 'cellphone', 'genre', 'address', 'password']
+        fields = ['id', 'name', 'cpf', 'email', 'birth_date', 'cellphone', 'genre', 'address', 'password','status_active']
         extra_kwargs = {'password': {'write_only': True}}
 
 
