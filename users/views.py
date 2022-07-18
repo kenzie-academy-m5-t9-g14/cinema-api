@@ -6,15 +6,19 @@ from rest_framework import status
 
 from django.contrib.auth import authenticate
 
-from users.serializers import UserSerializer, LoginSerializer
+from users.serializers import UserSerializer, LoginSerializer,UserAdminSerializer
 from users.models import User
 from . import permissions
 from rest_framework.authentication import TokenAuthentication
 
 
+class UserAdminView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserAdminSerializer
+
 class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserSerializer    
 
 class LoginUserView(APIView):
     def post(self, request):
