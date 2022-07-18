@@ -30,3 +30,8 @@ class MovieTheaterDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MovieTheater.objects.all()
     serializer_class = MovieTheaterSerializer
 
+
+class MovieTheaterMovieSessionsView(generics.ListCreateAPIView):
+    # authentication_classes = [TokenAuthentication]
+    queryset = MovieSession.objects.all()
+    serializer_class = MovieTheaterMovieSessionsSerializer
