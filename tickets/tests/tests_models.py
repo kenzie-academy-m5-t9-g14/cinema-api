@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.db import models
 from cinemas.models import Cinema
 from movie_sessions.models import MovieSession
 from movie_theaters.models import MovieTheater
@@ -8,6 +9,7 @@ from seats.models import Seat
 from tickets.models import Ticket
 from users.models import User
 from addresses.models import Address
+import uuid
 
 class TicketsModelTest(TestCase):
 
