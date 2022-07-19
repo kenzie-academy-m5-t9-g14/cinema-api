@@ -20,6 +20,7 @@ class MovieModelTest(TestCase):
 		        "number": 100,
 		        "zipcode":"1597536",
 		        "city":"bauru"
+
         }
 
         cls.address_cinema_data = {
@@ -28,6 +29,7 @@ class MovieModelTest(TestCase):
 		        "number": 49,
 		        "zipcode":"36555563",
 		        "city":"bauru"
+
         }
 
         cls.address_user = Address.objects.create(**cls.address_user_data)
@@ -39,16 +41,19 @@ class MovieModelTest(TestCase):
             "email":"super@user.com",
             "birth_date":"2000-4-03",
             "address_id":cls.address.id
+
         }
         
         cls.superuser = User.objects.create_superuser(**cls.superuser_data)
 
         cls.cinema_data = {
               "name":"Daslu2",
+
 	          "phone":"434725566",
 	          "email":"daslu@gmail.com",
 	          "opening_hours": "10:00 - 21:00",
               "owner":cls.superuser
+
         }
 
         cls.cinema = Cinema.objects.create(**cls.cinema_data)
@@ -72,6 +77,7 @@ class MovieModelTest(TestCase):
 
         cls.movie_theaters = MovieTheater.objects.create(**cls.movie_theaters_data)
 
+
         cls.movie_data = {
                "name":"Senhor dos Aneis",
                "duration": "250 min ",
@@ -80,7 +86,9 @@ class MovieModelTest(TestCase):
                "imdb_rating": "7.9",
                "release_date":"2022-01-12",
                "closing_date": "2022-03-12",
+
                "genres":  [{"name":"Ficção"},{"name":"Fantasia"}]
+
         }
 
         cls.movie = MoviesModel.objects.create(**cls.movie_data)
@@ -103,15 +111,10 @@ class MovieModelTest(TestCase):
         movie_theater = models.ForeignKey("movie_theaters.MovieTheater", on_delete=models.CASCADE, related_name="movie_sessions")
         schedule = models.ManyToManyField("schedules.Schedule", related_name="sessions", null=True)
 
-
-   
+ 
 
         #movie session
-   
-
-        
- 
-            
+                     
 
     def test_name_description(self):
         uuid = self.movie.id
@@ -127,3 +130,4 @@ class MovieModelTest(TestCase):
         genre_atribute = new_movie._meta.get_field("genres")
 
         self.assertIsNotNone(genre_atribute)
+

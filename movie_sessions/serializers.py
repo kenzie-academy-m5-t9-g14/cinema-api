@@ -10,6 +10,7 @@ from schedules.models import Schedule
 from schedules.serializers import ScheduleSerializer
 
 from .models import MovieSession
+import ipdb
 
 
 class MovieSessionSerializer(serializers.ModelSerializer):

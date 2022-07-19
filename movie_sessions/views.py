@@ -1,6 +1,8 @@
 from rest_framework import generics
 from rest_framework.views import  Response, status
 
+
+
 from .models import MovieSession
 from .serializers import MovieSessionSerializer
 
@@ -25,4 +27,3 @@ class MovieSessionDetailView(generics.RetrieveUpdateDestroyAPIView):
         serializer = MovieSessionSerializer(instance,{"status_active":False},partial=True)
         serializer.is_valid(raise_exception=True)
         return Response(status=status.HTTP_204_NO_CONTENT)
-
