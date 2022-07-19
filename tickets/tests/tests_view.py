@@ -1,5 +1,6 @@
-from django.test import TestCase
-from django.db import models
+from rest_framework.test import APITestCase
+from rest_framework.authtoken.models import Token
+from addresses.models import Address
 from cinemas.models import Cinema
 from movie_sessions.models import MovieSession
 from movie_theaters.models import MovieTheater
@@ -8,18 +9,17 @@ from payment_types.models import PaymentType
 from seats.models import Seat
 from tickets.models import Ticket
 from users.models import User
-from addresses.models import Address
-import uuid
+from rest_framework.views import status
 
-class TicketsModelTest(TestCase):
-
+class TicketsViewAndAutenticationTest(APITestCase):
     @classmethod
     def setUpTestData(cls) -> None:
+        cls.first_name = "Camila"
+        cls.last_name = "Suzuki"
+        cls.email = "camila@gmail.com"
+        cls.emailAdmin = "camilaAdmin@gmail.com"
+        cls.password = "senha_forte"
 
-        cls.payment_type_data  = {"type":"credito"}
-        cls.total_value_data   = 35.00
-
-        cls.status_active_data = True       
         cls.address_user_data = {
                 "street":"rua mockup",
                 "district": "district",
@@ -27,6 +27,34 @@ class TicketsModelTest(TestCase):
                 "zipcode":"1597536",
                 "city":"bauru"
         }
+        cls.address_user = Address.objects.create(**cls.address_user_data)
+        cls.userTeste = User.objects.create_user(
+            first_name=cls.first_name, 
+            last_name=cls.last_name,
+            email = cls.email,
+            birth_date="2000-01-11",
+            password = cls.password,
+            address_id=cls.address_user.id
+        )
+
+        cls.userTesteAdmin = User.objects.create_superuser(
+            first_name=cls.first_name, 
+            last_name=cls.last_name,
+            email = cls.emailAdmin,
+            password = cls.password,
+            birth_date="2000-01-11",
+            address_id=cls.address_user.id
+
+        ) 
+
+        cls.tokenUser = Token.objects.create(user=cls.userTeste)
+        cls.tokenAdmin = Token.objects.create(user=cls.userTesteAdmin)
+
+        cls.payment_type_data  = {"type":"credito"}
+        cls.total_value_data   = 35.00
+
+        cls.status_active_data = True       
+
 
         cls.address_cinema_data = {
                 "street":"rua exemplo",
@@ -36,7 +64,7 @@ class TicketsModelTest(TestCase):
                 "city":"bauru"
         }
 
-        cls.address_user = Address.objects.create(**cls.address_user_data)
+        
         cls.address_cinema = Address.objects.create(**cls.address_cinema_data)
 
         cls.superuser_data = {
@@ -104,50 +132,41 @@ class TicketsModelTest(TestCase):
         }
 
         cls.session = MovieSession.objects.create(**cls.session_data)
+       
         cls.payment_type = PaymentType.objects.create(**cls.payment_type_data)
 
-        cls.ticketTeste = Ticket.objects.create(
+        cls.ticketTesteMockup = Ticket.objects.create(
             payment_type=cls.payment_type, 
             total_value=cls.total_value_data,
             movie_session = cls.session,
             buyer_id = cls.superuser.id
         )
-        cls.ticketTeste.seats.set(cls.seat_array)
+        cls.ticketTesteMockup.seats.set(cls.seat_array)
 
-        cls.ticketTesteContain = Ticket.objects.create(
-            payment_type=cls.payment_type, 
-            total_value=cls.total_value_data,
-            movie_session = cls.session,
-            buyer_id = cls.superuser.id
-        )
 
-    
-    def test_ticket_has_information_fields(self):             
-        self.assertEqual(self.ticketTeste.payment_type, self.payment_type)
-        self.assertEqual(self.ticketTeste.total_value, self.total_value_data)
-        self.assertIsNotNone(self.ticketTeste.movie_session)  
-        self.assertIsNotNone(self.ticketTeste.seats)
-
-    def test_total_value(self):
-        uuid = self.ticketTeste.id
-        new_ticket = Ticket.objects.get(id=uuid)
-        total_value_ticket = new_ticket._meta.get_field("total_value")
-        self.assertIsNotNone(total_value_ticket)
-
-    def test_object_name_is_id_comma_last_name(self):
-        uuid = self.ticketTeste.id
-        new_ticket = Ticket.objects.get(id= uuid)
-        expected_object_name = f'{str(uuid)},{self.status_active_data}'  
-        self.assertEquals(expected_object_name, str(new_ticket))
-
-    def test_movie_theater_id_in_ticket(self):
+    def test_only_autenticated_can_create_ticket_fail(self):
         uuid = self.session.id
-        self.assertEqual(uuid, self.ticketTeste.movie_session.id) 
+        self.ticketTeste = {
+	        "payment_type": {
+	        "type":"credito"},
+	        "total_value": 35.00,
+	        "seats":[
+		       {"row":"A", "seat":"1"},
+		       {"row":"A", "seat":"2"}],
+            "session":self.session.id       
+        }
 
+        res = self.client.post(
+            f"/kinema/movie_session/{uuid}/ticket/", data=self.ticketTeste,format = "json"
+        )
 
-    def test_tickets_may_contain_multiple_seats(self):
-        self.ticketTesteContain.seats.set(self.seats_contain) 
-        self.assertEquals(
-                len(self.seats_contain), 
-                self.ticketTesteContain.seats.count()
-            ) 
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)  
+
+    def test_user_can_list_all_tickets(self):
+        uuid = self.ticketTesteMockup.id
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + self.tokenUser.key)
+        response = self.client.get(f'/kinema/tickets/{uuid}/')
+        self.assertEqual(response.status_code, 200)
+      
+
+       
