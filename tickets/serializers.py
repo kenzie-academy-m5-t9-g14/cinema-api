@@ -39,7 +39,7 @@ class TicketDetailSerializer(serializers.ModelSerializer):
          payment_type,_ = PaymentType.objects.get_or_create(**payment_type_data)
          ticket = Ticket.objects.create(**validated_data,payment_type=payment_type)
          print(vars(ticket))
-         #ticket.seats.set(seats_list)
+         ticket.seats.set(seats_list)
          
          return ticket    
 
