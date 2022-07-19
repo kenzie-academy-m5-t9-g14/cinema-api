@@ -22,26 +22,17 @@ class SeatMapSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data:dict):
          seats_data = validated_data.pop("seatMap")
-         seat_list = []
-         rows_list = []
-         for seats in seats_data:
-             seat_list.append(seats["seat"])
-             rows_list.append(seats["row"])
          movie_theater = validated_data.pop("movie_theater")
-         movie_theater = MovieTheater.objects.get(name = movie_theater.name)    
-
+         movie_theater = MovieTheater.objects.get(name = movie_theater.name)  
          seats_list = []
-         for row in rows_list:
-            for seat in seat_list:
-                num = int(seat)
-                while num > 0:
-                   dict = {"row":str(num),"seat":row} 
-                   num -=1
-                   print(dict) 
-                   seat2,_ = Seat.objects.get_or_create(**dict,movie_theater = movie_theater)
-                   seats_list.append(seat2)  
-                break    
-                               
+         for row_data in seats_data:       
+            num = int(row_data["seat"])
+            while num > 0:
+                dict = {"row":row_data["row"],"seat": str(num)} 
+                num -=1
+                seat2,_ = Seat.objects.get_or_create(**dict,movie_theater = movie_theater)
+                seats_list.append(seat2)  
+                  
          seat_map = SeatMap.objects.create(**validated_data)
          seat_map.seatMap.set(seats_list)
          return seat_map 
