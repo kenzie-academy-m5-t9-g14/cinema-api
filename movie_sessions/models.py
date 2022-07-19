@@ -15,5 +15,4 @@ class MovieSession(models.Model):
     
     movie = models.ForeignKey("movies.MoviesModel", on_delete=models.CASCADE, related_name="movie_sessions")
     movie_theater = models.ForeignKey("movie_theaters.MovieTheater", on_delete=models.CASCADE, related_name="movie_sessions")
-    
     schedule = models.ManyToManyField("schedules.Schedule", related_name="sessions", null=True)
