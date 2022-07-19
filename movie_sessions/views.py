@@ -2,9 +2,10 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework import generics
 from rest_framework.views import  Response, status
 
-from .models import MovieSession
-from .serializers import MovieSessionSerializer, MovieSessionSeatsSerializer
 
+
+from .models import MovieSession
+from .serializers import MovieSessionSerializer
 from seats.models import SeatMap
 from tickets.models import Ticket
 
@@ -34,3 +35,4 @@ class MovieSessionDetailView(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = MovieSession.objects.all()
 #     serializer_class = MovieSessionSeatsSerializer
 # 
+

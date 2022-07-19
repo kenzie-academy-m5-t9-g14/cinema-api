@@ -10,6 +10,7 @@ from tickets.serializers import TicketDetailSerializer, TicketSerializer
 
 
 class TicketListView(generics.ListAPIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
@@ -21,6 +22,7 @@ class TicketView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     
     queryset = Ticket.objects.all()
+
     serializer_class = TicketDetailSerializer
 
 
