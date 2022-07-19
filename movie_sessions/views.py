@@ -1,11 +1,8 @@
-from django.shortcuts import get_object_or_404, render
 from rest_framework import generics
 from rest_framework.views import  Response, status
 
 from .models import MovieSession
 from .serializers import MovieSessionSerializer
-from seats.models import SeatMap
-from tickets.models import Ticket
 
 from django.utils import timezone
 
@@ -29,7 +26,3 @@ class MovieSessionDetailView(generics.RetrieveUpdateDestroyAPIView):
         serializer.is_valid(raise_exception=True)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# class MovieSessionAvaibleSeatsView(generics.ListAPIView):
-#     queryset = MovieSession.objects.all()
-#     serializer_class = MovieSessionSeatsSerializer
-# 
