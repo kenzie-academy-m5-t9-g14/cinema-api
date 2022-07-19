@@ -1,6 +1,9 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from movie_sessions.models import MovieSession
+
 from tickets.models import Ticket
 from rest_framework.views import Response,status
 from tickets.serializers import TicketDetailSerializer, TicketSerializer
@@ -16,8 +19,11 @@ class TicketView(SerializerByMethodMixin,generics.ListCreateAPIView):
         "POST": TicketDetailSerializer,
     }
 
+ 
+
     def perform_create(self, serializer):
-        return serializer.save(buyer=self.request.user)
+        movie_session = get_object_or_404(MovieSession ,pk = self.kwargs.get("movie_session_id"))
+        return serializer.save(buyer=self.request.user,movie_session=movie_session)
 
 class TicketDetailView(generics.RetrieveDestroyAPIView):
     authentication_classes = [TokenAuthentication]
