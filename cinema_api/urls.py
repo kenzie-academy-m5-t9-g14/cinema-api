@@ -24,6 +24,7 @@ urlpatterns = [
     path("kinema/",include("movies.urls")),
     path("kinema/",include("users.urls")),
     path("kinema/",include("tickets.urls")),
+    path("kinema/",include("seats.urls")),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
