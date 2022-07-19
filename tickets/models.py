@@ -8,14 +8,17 @@ class Ticket(models.Model):
     status_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # movie_session = models.ForeignKey(
-    #     "movie_sessions.MovieSession", on_delete=models.DO_NOTHING, related_name="tickets"
-    # )
+    movie_session = models.ForeignKey(
+        "movie_sessions.MovieSession", on_delete=models.DO_NOTHING, related_name="tickets"
+    )
     buyer = models.ForeignKey(
         "users.User", on_delete=models.DO_NOTHING, related_name="tickets"
     )
     payment_type = models.ForeignKey(
          "payment_types.PaymentType", on_delete=models.DO_NOTHING, related_name="tickets"
+     ) 
+    seats = models.ManyToManyField(
+         "seats.Seat", related_name="tickets"
      ) 
 
 
