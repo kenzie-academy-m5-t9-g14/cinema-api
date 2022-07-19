@@ -3,7 +3,6 @@ from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from movie_sessions.models import MovieSession
-
 from tickets.models import Ticket
 from rest_framework.views import Response,status
 from tickets.serializers import TicketDetailSerializer, TicketSerializer
