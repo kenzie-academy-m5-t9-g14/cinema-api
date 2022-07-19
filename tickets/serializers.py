@@ -29,16 +29,12 @@ class TicketDetailSerializer(serializers.ModelSerializer):
          seat_map_data = validated_data.pop("seats")
          seats_list = []
 
-         #new_genre = [Genre.objects.get_or_create(name=item["name"])[0] for item in genre]
-        
+      
          for seat in seat_map_data:
-            #seat2 = Seat.objects.get(id = seat["ticket_seat_id"])  
             seat2 = get_object_or_404(Seat ,row = seat["row"],seat= seat['seat'])
-            print(seat2,'2')
             seats_list.append(seat2)
          payment_type,_ = PaymentType.objects.get_or_create(**payment_type_data)
          ticket = Ticket.objects.create(**validated_data,payment_type=payment_type)
-         print(vars(ticket))
          ticket.seats.set(seats_list)
          
          return ticket    
