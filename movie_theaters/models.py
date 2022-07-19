@@ -14,3 +14,4 @@ class MovieTheater(models.Model):
     cinema = models.ForeignKey(
         "cinemas.Cinema", on_delete=models.CASCADE, related_name="movie_theathers"
     )
+    
