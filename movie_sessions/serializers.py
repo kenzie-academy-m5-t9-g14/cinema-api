@@ -6,7 +6,9 @@ from movies.serializers import MovieSerializer
 from schedules.models import Schedule
 from schedules.serializers import ScheduleSerializer
 from seats.models import Seat
+
 from .models import MovieSession
+import ipdb
 
 import ipdb
 
@@ -42,6 +44,7 @@ class MovieSessionSerializer(serializers.ModelSerializer):
 #    class Meta:
 #        model = MovieSession
 #        fields = ['avaible_seats']
+
     
 
 

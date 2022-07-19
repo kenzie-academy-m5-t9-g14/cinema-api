@@ -6,3 +6,8 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = ['id', 'street', 'district', 'number', 'city', 'zipcode']
         fields_read_only = ['id']
+        
+class AddressCinemaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['city']
