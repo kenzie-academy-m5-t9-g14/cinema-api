@@ -1,10 +1,12 @@
 from django.test import TestCase
+from django.db import models
 from cinemas.models import Cinema
 from movie_theaters.models import MovieTheater
 from movies.models import MoviesModel
 from genres.models import Genre
 from users.models import User
 from addresses.models import Address
+import uuid
 
 class MovieModelTest(TestCase):
 
