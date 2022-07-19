@@ -1,0 +1,848 @@
+openapi: 3.0.3
+info:
+  title: Kinema-Api
+  version: 1.0.0
+  description: Api para gerenciamento de cinema
+paths:
+  /kinema/cinemas/:
+    get:
+      operationId: cinemas_list
+      tags:
+      - cinemas
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cinema'
+          description: ''
+    post:
+      operationId: cinemas_create
+      tags:
+      - cinemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cinema'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cinema'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cinema'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+          description: ''
+  /kinema/cinemas/{id}/:
+    get:
+      operationId: cinemas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cinema.
+        required: true
+      tags:
+      - cinemas
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+          description: ''
+    put:
+      operationId: cinemas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cinema.
+        required: true
+      tags:
+      - cinemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cinema'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cinema'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cinema'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+          description: ''
+    patch:
+      operationId: cinemas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cinema.
+        required: true
+      tags:
+      - cinemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCinema'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCinema'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCinema'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+          description: ''
+    delete:
+      operationId: cinemas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cinema.
+        required: true
+      tags:
+      - cinemas
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /kinema/kinema/movies/:
+    get:
+      operationId: kinema_movies_list
+      tags:
+      - kinema
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+          description: ''
+    post:
+      operationId: kinema_movies_create
+      tags:
+      - kinema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Movie'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+  /kinema/kinema/movies/{id}/:
+    get:
+      operationId: kinema_movies_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movies model.
+        required: true
+      tags:
+      - kinema
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+    put:
+      operationId: kinema_movies_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movies model.
+        required: true
+      tags:
+      - kinema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Movie'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Movie'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+    patch:
+      operationId: kinema_movies_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movies model.
+        required: true
+      tags:
+      - kinema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+    delete:
+      operationId: kinema_movies_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movies model.
+        required: true
+      tags:
+      - kinema
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /kinema/login/:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /kinema/movie_theaters/:
+    get:
+      operationId: movie_theaters_list
+      tags:
+      - movie_theaters
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieTheater'
+          description: ''
+  /kinema/movie_theaters/{id}/:
+    get:
+      operationId: movie_theaters_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movie theater.
+        required: true
+      tags:
+      - movie_theaters
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieTheater'
+          description: ''
+    put:
+      operationId: movie_theaters_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movie theater.
+        required: true
+      tags:
+      - movie_theaters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieTheater'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MovieTheater'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MovieTheater'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieTheater'
+          description: ''
+    patch:
+      operationId: movie_theaters_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movie theater.
+        required: true
+      tags:
+      - movie_theaters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMovieTheater'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMovieTheater'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMovieTheater'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieTheater'
+          description: ''
+    delete:
+      operationId: movie_theaters_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this movie theater.
+        required: true
+      tags:
+      - movie_theaters
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /kinema/movie_theaters/cinema/{cinema_id}/movie_theater/:
+    post:
+      operationId: movie_theaters_cinema_movie_theater_create
+      parameters:
+      - in: path
+        name: cinema_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - movie_theaters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieTheater'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MovieTheater'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MovieTheater'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieTheater'
+          description: ''
+  /kinema/users/:
+    get:
+      operationId: users_list
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        street:
+          type: string
+          maxLength: 100
+        district:
+          type: string
+          maxLength: 100
+        number:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        city:
+          type: string
+          maxLength: 100
+        zipcode:
+          type: string
+          maxLength: 8
+      required:
+      - city
+      - district
+      - id
+      - number
+      - street
+      - zipcode
+    Cinema:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        phone:
+          type: string
+          maxLength: 11
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 30
+        opening_hours:
+          type: string
+          nullable: true
+          maxLength: 100
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+      - address
+      - id
+      - name
+      - phone
+    Genre:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - updated_at
+    Movie:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        duration:
+          type: string
+          nullable: true
+          maxLength: 20
+        parental_rating:
+          type: string
+          maxLength: 20
+        sinopse:
+          type: string
+          maxLength: 255
+        imdb_rating:
+          type: string
+          maxLength: 10
+        release_date:
+          type: string
+          format: date
+        closing_date:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+      required:
+      - closing_date
+      - created_at
+      - genres
+      - id
+      - imdb_rating
+      - name
+      - parental_rating
+      - release_date
+      - sinopse
+      - updated_at
+    MovieTheater:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        type:
+          type: string
+          maxLength: 30
+        number_of_seats:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        exhibit_type:
+          type: string
+          maxLength: 30
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        seats_id:
+          type: string
+          format: uuid
+          readOnly: true
+        cinema:
+          allOf:
+          - $ref: '#/components/schemas/Cinema'
+          readOnly: true
+      required:
+      - cinema
+      - created_at
+      - exhibit_type
+      - id
+      - name
+      - number_of_seats
+      - seats_id
+      - type
+      - updated_at
+    PatchedCinema:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        phone:
+          type: string
+          maxLength: 11
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 30
+        opening_hours:
+          type: string
+          nullable: true
+          maxLength: 100
+        address:
+          $ref: '#/components/schemas/Address'
+    PatchedMovie:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        duration:
+          type: string
+          nullable: true
+          maxLength: 20
+        parental_rating:
+          type: string
+          maxLength: 20
+        sinopse:
+          type: string
+          maxLength: 255
+        imdb_rating:
+          type: string
+          maxLength: 10
+        release_date:
+          type: string
+          format: date
+        closing_date:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+    PatchedMovieTheater:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        type:
+          type: string
+          maxLength: 30
+        number_of_seats:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        exhibit_type:
+          type: string
+          maxLength: 30
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        seats_id:
+          type: string
+          format: uuid
+          readOnly: true
+        cinema:
+          allOf:
+          - $ref: '#/components/schemas/Cinema'
+          readOnly: true
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        cpf:
+          type: string
+          maxLength: 11
+        email:
+          type: string
+          format: email
+        birth_date:
+          type: string
+          format: date
+        cellphone:
+          type: string
+          nullable: true
+          maxLength: 13
+        genre:
+          type: string
+          nullable: true
+          maxLength: 20
+        address:
+          $ref: '#/components/schemas/Address'
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 100
+      required:
+      - address
+      - birth_date
+      - cpf
+      - email
+      - id
+      - name
+      - password
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
