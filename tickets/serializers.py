@@ -11,7 +11,6 @@ from users.models import User
 from .models import  Ticket 
 from users.serializers import UserSerializer
 
-#movie_session
 
 class TicketDetailSerializer(serializers.ModelSerializer):
     buyer = UserSerializer(read_only=True)
@@ -40,9 +39,8 @@ class TicketDetailSerializer(serializers.ModelSerializer):
          return ticket    
 
 class TicketSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = Ticket
         fields = ['id','buyer', 'created_at','is_student','payment_type','total_value','status_active','updated_at']
+        depth = 0
 

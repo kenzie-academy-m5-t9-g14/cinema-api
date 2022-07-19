@@ -5,7 +5,7 @@ class Seat(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     row = models.CharField(max_length=20)
     seat = models.CharField(max_length=20)
-    is_active = models.BooleanField(default=True)
+    status_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     ticket_seat_id = models.UUIDField(default=uuid.uuid4)

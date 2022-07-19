@@ -15,36 +15,18 @@ class SeatView(generics.ListCreateAPIView):
         return serializer.save(movie_theater=movie_theater)
 
 
-        # seats_data = validated_data.pop("seatMap")
-    
-        #  seats_list = []
-        #  for seat in seats_data:
-        #      seat2,_ = Seat.objects.get_or_create(**seat,movie_theater = movie_theater)
-        #      seats_list.append(seat2)
-
-        #  seat_map = SeatMap.objects.create(**validated_data)
-        #  seat_map.seats.set(seats_list)
-        #  return seat_map 
-    
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     user = authenticate(
-    #     username=serializer.validated_data["email"],
-    #     password=serializer.validated_data["password"],
-    #     )
-    #     if user:
-    #       token, _ = Token.objects.get_or_create(user=user)
-    #       headers = self.get_success_headers(serializer.data)
-    #       token = token.key
-    #       return Response({"token": token}, status=status.HTTP_201_CREATED, headers=headers)
-    #     return Response(
-    #         {"detail": "Invalid email or password"}, status.HTTP_401_UNAUTHORIZED 
-    #     )    
-
 class SeatDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatSerializer
+
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        setattr(instance,"status_active",False)
+        instance.save()
+        serializer = SeatSerializer(instance,{"status_active":False},partial=True)
+        serializer.is_valid(raise_exception=True)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 

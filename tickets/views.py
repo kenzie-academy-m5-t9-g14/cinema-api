@@ -7,19 +7,22 @@ from movie_sessions.models import MovieSession
 from tickets.models import Ticket
 from rest_framework.views import Response,status
 from tickets.serializers import TicketDetailSerializer, TicketSerializer
-from .mixins import SerializerByMethodMixin
 
-class TicketView(SerializerByMethodMixin,generics.ListCreateAPIView):
+
+class TicketListView(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     queryset = Ticket.objects.all()
-    serializer_map = {
-        "GET": TicketSerializer,
-        "POST": TicketDetailSerializer,
-    }
+    serializer_class = TicketSerializer
 
- 
+class TicketView(generics.CreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    queryset = Ticket.objects.all()
+    serializer_class = TicketDetailSerializer
+
 
     def perform_create(self, serializer):
         movie_session = get_object_or_404(MovieSession ,pk = self.kwargs.get("movie_session_id"))
