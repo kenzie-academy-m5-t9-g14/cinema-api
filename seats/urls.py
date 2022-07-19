@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import SeatView,SeatDetailView
+from . import views
 
 urlpatterns = [
-    path("movie_theater/<pk>/seats/",SeatView.as_view()),
-    path("seats/<int:pk>/",SeatDetailView.as_view())
+    path("movie_theater/<pk>/seats/",views.SeatView.as_view()),
+    path("seats/<str:pk>/",views.SeatDetailView.as_view()),
+    path("seats/",views.SeatListView.as_view())
 ]
