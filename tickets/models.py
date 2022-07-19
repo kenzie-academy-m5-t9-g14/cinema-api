@@ -21,8 +21,10 @@ class Ticket(models.Model):
          "seats.Seat", related_name="tickets"
      ) 
 
+
     def __str__(self):
        return f'{self.id},{self.status_active}' 
+
 
 
 

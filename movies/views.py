@@ -9,7 +9,6 @@ from . import permissions
 from django.forms.models import model_to_dict
 
 
-
 class MovieView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.AuthPermissionToUser]
@@ -24,4 +23,3 @@ class MovieViewDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = models.MoviesModel.objects.all()
     serializer_class = serializers.MovieSerializer
-
