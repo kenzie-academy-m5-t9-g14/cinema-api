@@ -47,7 +47,6 @@ class CinemaViewsTest(APITestCase):
 	def test_create_cinema(self):
 		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 		response = self.client.post('/kinema/cinemas/', data=self.cinema, format='json')
-		ipdb.set_trace()
 		self.assertEqual(response.status_code, 201)
 
 
