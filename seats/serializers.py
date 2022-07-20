@@ -13,6 +13,11 @@ class SeatSerializer(serializers.ModelSerializer):
         model = Seat
         fields = "__all__"
 
+class SeatAvaibleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Seat
+        fields = ['id', 'row', 'seat']
+
 # class SeatIdSerializer(serializers.ModelSerializer):
 #     movie_theater = MovieTheaterSerializer(read_only=True)
 #     class Meta:
@@ -42,10 +47,5 @@ class SeatMapSerializer(serializers.ModelSerializer):
                   
          seat_map = SeatMap.objects.create(**validated_data)
          seat_map.seatMap.set(seats_list)
-         return seat_map 
-
-
-
-
-   
+         return seat_map
 
