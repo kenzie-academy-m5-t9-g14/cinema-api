@@ -11,7 +11,7 @@ class MoviesViewTest(APITestCase):
     @classmethod
     def setUpTestData(cls) -> None:
 
-        cls.superuser = User.objects.create_superuser(**{"name": "Gabriel", "password": "1234","email":"gabriel@admin.com","birth_date":"2022-02-02"})
+        cls.superuser = User.objects.create_superuser(**{"name": "Gabriel", "password": "1234","email":"gabriel@admin.com","birth_date":"2022-02-02", "address_id": "1"})
 
         cls.token = Token.objects.create(user = cls.superuser)
 
