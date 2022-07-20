@@ -2,6 +2,7 @@
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 import ipdb
+from addresses.models import Address
 
 from users.models import User
 
@@ -11,7 +12,16 @@ class MoviesViewTest(APITestCase):
     @classmethod
     def setUpTestData(cls) -> None:
 
-        cls.superuser = User.objects.create_superuser(**{"name": "Gabriel", "password": "1234","email":"gabriel@admin.com","birth_date":"2022-02-02", "address_id": "1"})
+        cls.address = {
+			"street":"Avenida Brazil",
+		    "district": "Center",
+		    "number": 84,
+		    "zipcode":"85802120",
+		    "city":"cascavel"
+		}
+        cls.address = Address.objects.create(**cls.address)
+
+        cls.superuser = User.objects.create_superuser(**{"name": "Gabriel", "password": "1234","email":"gabriel@admin.com","birth_date":"2022-02-02", "address_id": cls.address.id})
 
         cls.token = Token.objects.create(user = cls.superuser)
 
