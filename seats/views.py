@@ -1,12 +1,11 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import  Response, status
 from rest_framework import generics
-import movie_sessions
 from movie_theaters.models import MovieTheater
 from .mixins import SerializerByMethodMixin
 from .models import  Seat
 
-from .serializers import  SeatIdSerializer, SeatMapSerializer, SeatSerializer
+from .serializers import  SeatIdSerializer, SeatMapSerializer, SeatSerializer,SeatAvaibleSerializer
 from rest_framework.authentication import TokenAuthentication
 from seats.permissions import CustomAdminPermission
 

@@ -47,3 +47,8 @@ class SeatMapSerializer(serializers.ModelSerializer):
          seat_map.seatMap.set(seats_list)
          return seat_map
 
+class SeatAvaibleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Seat
+        fields = ['id', 'row', 'seat']
+
