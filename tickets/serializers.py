@@ -29,15 +29,19 @@ class TicketDetailSerializer(serializers.ModelSerializer):
     def create(self, validated_data:dict):
          payment_type_data = validated_data.pop("payment_type")
          seat_map_data = validated_data.pop("seats")
-         seats_list = []
          seats_list_movie_theater = validated_data["movie_session"].movie_theater.seats.all()
          for seat in seat_map_data:
+            found = False
             for seat_movie_theater in seats_list_movie_theater:
                if seat_movie_theater.row == seat["row"] and seat_movie_theater.seat == seat["seat"]:
-                seats_list.append(seat_movie_theater)
+                 found =True
+                 break
+            if not found:
+                raise Http404
+
          payment_type,_ = PaymentType.objects.get_or_create(**payment_type_data)
          ticket = Ticket.objects.create(**validated_data,payment_type=payment_type)
-         ticket.seats.set(seats_list)
+         ticket.seats.set(seat_map_data)
          email = ticket.buyer.email
          subject = "Compra de ingresso efetuada com sucesso"
          message = f"Parabéns pela compra, {ticket.buyer.name}\n Sua sessão de cinema está confirmada em: \n {ticket.movie_session.movie_theater.cinema.name}, Sala: {ticket.movie_session.movie_theater.name}, sessão: {ticket.movie_session.movie_theater.type}, {ticket.movie_session.movie_theater.exhibit_type}\n Para o filme: {ticket.movie_session.movie.name} \n No dia : {ticket.movie_session.schedule.all()[0].date} , as: {ticket.movie_session.schedule.all()[0].hour}  "
