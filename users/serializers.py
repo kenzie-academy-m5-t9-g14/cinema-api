@@ -31,6 +31,19 @@ class UserAdminSerializer(serializers.ModelSerializer):
         
         return user
 
+    def update(self, instance: User, validated_data:dict):
+        if validated_data.get('address'):
+            address_poped = validated_data.pop('address')
+
+            verificated_address, _ = Address.objects.get_or_create(**address_poped)
+            instance.address = verificated_address
+
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.save()
+        return instance
+
 class UserSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField()
@@ -56,7 +69,20 @@ class UserSerializer(serializers.ModelSerializer):
 
         user = User.objects.create_user(**validated_data, address=validated_address)
         
-        return user        
+        return user      
+
+    def update(self, instance: User, validated_data:dict):
+        if validated_data.get('address'):
+            address_poped = validated_data.pop('address')
+
+            verificated_address, _ = Address.objects.get_or_create(**address_poped)
+            instance.address = verificated_address
+
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.save()
+        return instance  
 
 
 class ListUserSerializer(serializers.ModelSerializer):
