@@ -30,6 +30,8 @@ class TicketView(generics.CreateAPIView):
         movie_session = get_object_or_404(MovieSession ,pk = self.kwargs.get("movie_session_id"))
         return serializer.save(buyer=self.request.user,movie_session=movie_session)
 
+
+
 class TicketDetailView(generics.RetrieveDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

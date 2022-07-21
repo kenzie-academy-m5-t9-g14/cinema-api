@@ -8,10 +8,16 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import dj_database_url
+from dotenv import load_dotenv
 
 from pathlib import Path
+import environ
 
-from dotenv import load_dotenv
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+
 
 load_dotenv()  # take environment variables from .env.
 import os
@@ -96,6 +102,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cinema_api.wsgi.application'
+
 
 
 # Database
@@ -194,3 +201,12 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+environ.Env.read_env(BASE_DIR / '.env')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')

@@ -1,8 +1,11 @@
+import uuid
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 import movie_sessions
 from movie_sessions.serializers import MovieSessionSerializer
-
+from movie_theaters.models import MovieTheater
+from .mailing.utils import sendEmail
 from payment_types.models import PaymentType
 from payment_types.serializers import PaymentTypeSerializer
 from seats.models import Seat
@@ -27,15 +30,19 @@ class TicketDetailSerializer(serializers.ModelSerializer):
          payment_type_data = validated_data.pop("payment_type")
          seat_map_data = validated_data.pop("seats")
          seats_list = []
-
-      
+         seats_list_movie_theater = validated_data["movie_session"].movie_theater.seats.all()
          for seat in seat_map_data:
-            seat2 = get_object_or_404(Seat ,row = seat["row"],seat= seat['seat'])
-            seats_list.append(seat2)
+            for seat_movie_theater in seats_list_movie_theater:
+               if seat_movie_theater.row == seat["row"] and seat_movie_theater.seat == seat["seat"]:
+                seats_list.append(seat_movie_theater)
          payment_type,_ = PaymentType.objects.get_or_create(**payment_type_data)
          ticket = Ticket.objects.create(**validated_data,payment_type=payment_type)
          ticket.seats.set(seats_list)
-         
+         email = ticket.buyer.email
+         subject = "Compra de ingresso efetuada com sucesso"
+         message = f"Parabéns pela compra, {ticket.buyer.name}\n Sua sessão de cinema está confirmada em: \n {ticket.movie_session.movie_theater.cinema.name}, Sala: {ticket.movie_session.movie_theater.name}, sessão: {ticket.movie_session.movie_theater.type}, {ticket.movie_session.movie_theater.exhibit_type}\n Para o filme: {ticket.movie_session.movie.name} \n No dia : {ticket.movie_session.schedule.all()[0].date} , as: {ticket.movie_session.schedule.all()[0].hour}  "
+         if ticket:
+             sendEmail(subject,message,[email])
          return ticket    
 
 class TicketSerializer(serializers.ModelSerializer):
