@@ -5,7 +5,7 @@ from rest_framework.views import Response,status
 from cinemas.mixins import SerializerByMethodMixin
 from cinemas.models import Cinema
 from cinemas.permissions import CustomAdminPermission
-from cinemas.serializers import CinemaSerializer, CinemaSerializerList
+from cinemas.serializers import CinemaSerializer, CinemaSerializerList, CinemaUpdateSerializer
 
 
 class CinemaView(SerializerByMethodMixin, generics.ListCreateAPIView):
@@ -18,12 +18,16 @@ class CinemaView(SerializerByMethodMixin, generics.ListCreateAPIView):
         "POST":CinemaSerializer,    
     }
 
-class CinemaDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CinemaDetailView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly, CustomAdminPermission]
 
     queryset = Cinema.objects.all()
-    serializer_class = CinemaSerializer
+    serializer_map = {
+        "GET":  CinemaSerializer,
+        "PATCH":CinemaUpdateSerializer,
+        "DELETE": CinemaSerializer  
+    }
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
