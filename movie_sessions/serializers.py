@@ -14,7 +14,7 @@ import ipdb
 
 
 class MovieSessionSerializer(serializers.ModelSerializer):
-    schedule = ScheduleSerializer(many=True, read_only=True)
+    schedule = ScheduleSerializer(many=True)
     movie = MovieSerializer(read_only=True)
     movie_theater = MovieTheaterSerializer(read_only=True)
     class Meta:
@@ -33,4 +33,22 @@ class MovieSessionSerializer(serializers.ModelSerializer):
            movie_session.schedule.set(schedule_instances)
            return movie_session
 
+class MovieSessionUpdateSerializer(serializers.ModelSerializer):
+    schedule = ScheduleSerializer(many=True, read_only=True)
+    movie = MovieSerializer(read_only=True)
+    movie_theater = MovieTheaterSerializer(read_only=True)
+    class Meta:
+        model = MovieSession
+        fields = '__all__'
+        read_only_fields = ['created_at', 'updated_at', 'movie', 'movie_theater','schedule']
 
+# def create(self, validated_data):
+#            movie = validated_data.pop("movie_id")
+#            movie_theater = validated_data.pop("movie_theater_id")
+#            schedules = validated_data.pop("schedule")
+#            movie_theater_instance = MovieTheater.objects.get(id = movie_theater)  
+#            movie_instance = MoviesModel.objects.get(id = movie) 
+#            schedule_instances = [Schedule.objects.get_or_create(hour=item["hour"],date=item["date"])[0] for item in schedules]
+#            movie_session = MovieSession.objects.create(**validated_data,movie_theater = movie_theater_instance,movie=movie_instance)
+#            movie_session.schedule.set(schedule_instances)
+#            return movie_session
