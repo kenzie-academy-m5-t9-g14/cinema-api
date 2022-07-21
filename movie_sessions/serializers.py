@@ -14,7 +14,7 @@ import ipdb
 
 
 class MovieSessionSerializer(serializers.ModelSerializer):
-    schedule = ScheduleSerializer(many=True)
+    schedule = ScheduleSerializer(many=True, read_only=True)
     movie = MovieSerializer(read_only=True)
     movie_theater = MovieTheaterSerializer(read_only=True)
     class Meta:
