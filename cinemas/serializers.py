@@ -6,7 +6,7 @@ from cinemas.models import Cinema
 
 
 class CinemaSerializer(serializers.ModelSerializer):
-    address = AddressSerializer(read_only=True)
+    address = AddressSerializer()
     class Meta:
         model = Cinema
         fields = ['id', 'name', 'phone', 'email', 'opening_hours', 'address','status_active']
