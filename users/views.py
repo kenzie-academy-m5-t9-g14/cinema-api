@@ -57,6 +57,12 @@ class UserDetailView(SerializerByMethodMixin, generics.RetrieveUpdateDestroyAPIV
         'DELETE': UserSerializer
     }
 
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         setattr(instance,"is_active",False)
