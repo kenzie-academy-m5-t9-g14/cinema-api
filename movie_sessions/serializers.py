@@ -33,4 +33,11 @@ class MovieSessionSerializer(serializers.ModelSerializer):
            movie_session.schedule.set(schedule_instances)
            return movie_session
 
-
+class MovieSessionUpdateSerializer(serializers.ModelSerializer):
+    schedule = ScheduleSerializer(many=True, read_only=True)
+    movie = MovieSerializer(read_only=True)
+    movie_theater = MovieTheaterSerializer(read_only=True)
+    class Meta:
+        model = MovieSession
+        fields = '__all__'
+        read_only_fields = ['created_at', 'updated_at', 'movie', 'movie_theater','schedule']

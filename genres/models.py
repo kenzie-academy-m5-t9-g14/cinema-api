@@ -8,6 +8,6 @@ class Genre(models.Model):
             default = uuid.uuid4,
             editable = False
          )
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)

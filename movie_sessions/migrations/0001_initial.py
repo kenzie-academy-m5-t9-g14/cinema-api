@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('schedules', '0001_initial'),
         ('movie_theaters', '0001_initial'),
         ('movies', '0001_initial'),
+        ('schedules', '0001_initial'),
     ]
 
     operations = [
