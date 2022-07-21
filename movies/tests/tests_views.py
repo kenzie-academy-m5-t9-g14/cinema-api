@@ -66,13 +66,13 @@ class MoviesViewTest(APITestCase):
         
     
 
-    def test_not_patch_one_genre_already_exists(self):
+def test_patch_one_genre_already_exists(self):
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
         movie_created = self.client.post("/kinema/movies/", data = self.movie, format = "json")
         uuid = movie_created.data["id"]
 
         res = self.client.patch(f'/kinema/movies/{uuid}/', data = self.movie, format = "json")
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 200)
 
 
     def test_delete_one_movie(self):
