@@ -1,18 +1,13 @@
-import uuid
 from django.http import Http404
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
-import movie_sessions
 from movie_sessions.serializers import MovieSessionSerializer
-from movie_theaters.models import MovieTheater
 from .mailing.utils import sendEmail
 from payment_types.models import PaymentType
 from payment_types.serializers import PaymentTypeSerializer
-from seats.models import Seat
 from seats.serializers import   SeatSerializer
-from users.models import User
 from .models import  Ticket 
 from users.serializers import UserSerializer
+from django.conf import settings
 
 
 class TicketDetailSerializer(serializers.ModelSerializer):
@@ -43,6 +38,9 @@ class TicketDetailSerializer(serializers.ModelSerializer):
          ticket = Ticket.objects.create(**validated_data,payment_type=payment_type)
          ticket.seats.set(seat_map_data)
          email = ticket.buyer.email
+         from_email = settings.EMAIL_HOST_USER
+         if not from_email:
+           from_email = ticket.movie_session.movie_theater.cinema.email
          subject = "Compra de ingresso efetuada com sucesso"
          message = f"Parabéns pela compra, {ticket.buyer.name}\n Sua sessão de cinema está confirmada em: \n {ticket.movie_session.movie_theater.cinema.name}, Sala: {ticket.movie_session.movie_theater.name}, sessão: {ticket.movie_session.movie_theater.type}, {ticket.movie_session.movie_theater.exhibit_type}\n Para o filme: {ticket.movie_session.movie.name} \n No dia : {ticket.movie_session.schedule.all()[0].date} , as: {ticket.movie_session.schedule.all()[0].hour}  "
          if ticket:
